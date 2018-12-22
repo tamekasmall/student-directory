@@ -3,8 +3,14 @@ $students = []
 def input_students
   puts "Please enter the name of the student"
   name = gets.chomp
+    if name == ""
+      name = "name: not entered"
+    end
   puts "Please enter cohort"
   cohort = gets.chomp
+    if cohort == ""
+      cohort = "not entered: "
+    end
   puts "Please enter country of origin"
   country_origin = gets.chomp
   puts "Please enter height (eg '175' for 175cm)"
@@ -17,7 +23,7 @@ def input_students
   finish = gets.chomp
 
   while !name.empty? do
-    $students << {name: name, cohort: cohort.to_sym, country_origin: country_origin, height: height.to_i, sport: sport}
+    $students << {name: name.to_sym, cohort: cohort.to_sym, country_origin: country_origin, height: height.to_i, sport: sport}
       if $students.length < 2
         puts "Now we have #{$students.length} student"
         break
@@ -29,12 +35,12 @@ def input_students
     if finish == "add"
       input_students
     else finish == "q"
-    $students
+      $students
     end
   end
 def print_header
-  puts "The students of my cohort at Makers Academy".center(25)
-  puts "--------------------------------".center(50)
+  puts "The students of my cohort at Makers Academy".center(20)
+  puts "--------------------------------".center(45)
 end
 def print(students)
   index = 0
@@ -50,8 +56,27 @@ def print_footer(names)
     puts "Overall, we have #{$students.length} great students"
   end
 end
+def edit_info(students)
+  puts "  "
+  puts "To make any changes, enter 'c'"
+  choice = gets.chomp.downcase
+    if choice == "c"
+      puts "Enter the student number you want to change"
+      student_num = gets.chomp.to_i
+      puts "Enter the correct name"
+      new_name = gets.chomp.to_sym
+      puts "Enter the correct cohort"
+      new_cohort = gets.chomp.to_sym
+      index = (student_num - 1)
+      $students[index][:name] = new_name
+      $students[index][:cohort] = new_cohort
+      else
+    end
 
+end
 students = input_students
 print_header
 print(students)
 print_footer(students)
+edit_info(students)
+print(students)
