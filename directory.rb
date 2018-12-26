@@ -46,14 +46,14 @@ def print(students)
         index += 1
     end
 end
-def print_footer(names)
+def print_footer(names) #8.9 pluralisation for student/s
   if $students.length == 1
     puts "Overall, we have #{$students.length} great student"
   elsif $students.length > 1
     puts "Overall, we have #{$students.length} great students"
   end
 end
-def print_student_by_cohort(students)
+def print_student_by_cohort(students) #8.8 printing students by cohort, iteration over array
   array = []
     puts "Enter cohort to print"
       user_input = gets.chomp.downcase.to_sym
