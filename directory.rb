@@ -42,8 +42,10 @@ end
 def print(students)
   index = 0
     while index < $students.length
+      if $students.length >= 1
       puts "#{index + 1}. #{$students[index][:name]} (#{$students[index][:cohort]} cohort)"
         index += 1
+      end
     end
 end
 def print_footer(names) #8.9 pluralisation for student/s
