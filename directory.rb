@@ -80,7 +80,7 @@ def print_footer #8.9 pluralisation for student/s
   end
 end
 def save_students
-  file = File.open("student.csv", "w")
+  file = File.open(".student.csv", "w")
   @students.each do |student|
     students_data = [student[:name], student[:cohort]]
     csv_line = students_data.join(",")
