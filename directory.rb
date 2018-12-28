@@ -1,24 +1,24 @@
 $students = []
 def input_students
   puts "Please enter the name of the student"
-  name = gets.chomp
+  name = gets.chop
     if name == ""
     name = "name: not entered"
     end
   puts "Please enter cohort"
-  cohort = gets.chomp
+  cohort = gets.chop
     if cohort == ""
     cohort = "not entered: "
     end
   puts "Please enter country of origin"
-  country_origin = gets.chomp
+  country_origin = gets.chop
   puts "Please enter height (eg '175' for 175cm)"
-  height = gets.chomp
+  height = gets.chop
   puts "Please enter your favourite sport"
-  sport = gets.chomp
+  sport = gets.chop
   puts "1.)......To ADD STUDENT 'add' then ENTER".rjust(30)
   puts "2.)......To FINISH 'q' then double tap ENTER".rjust(30)
-  finish = gets.chomp
+  finish = gets.chop
   while !name.empty? do
     $students << {name: name.to_sym, cohort: cohort.to_sym, country_origin: country_origin, height: height, sport: sport}
       if $students.length < 2
@@ -26,7 +26,7 @@ def input_students
           break
       elsif $students.length >= 2
         puts "Now we have #{$students.length} students"
-          name = gets.chomp
+          name = gets.chop
       end
   end
     if finish == "add"
@@ -56,7 +56,7 @@ end
 def print_student_by_cohort(students) #8.8 printing students by cohort, iteration over array
   array = []
     puts "Enter cohort to print"
-      user_input = gets.chomp.downcase.to_sym
+      user_input = gets.chop.downcase.to_sym
       $students.map {|student| array << student if student[:cohort] == user_input}
       array.each {|student| puts "#{student[:name]} (#{student[:cohort]})"}
     end
@@ -66,14 +66,14 @@ def option_menu(students) # Added a menu for better usability
   puts "1.)......To make any CHANGES, ENTER 'c'"
   puts "2.)......To SEARCH students by cohort ENTER 's'"
   puts "3.)......To FINISH press ENTER"
-  choice = gets.chomp.downcase
+  choice = gets.chop.downcase
     if choice == "c"
       puts "Enter the student number you want to change"
-        student_num = gets.chomp.to_i
+        student_num = gets.chop.to_i
       puts "Enter the correct name"
-        new_name = gets.chomp.to_sym
+        new_name = gets.chop.to_sym
       puts "Enter the correct cohort"
-        new_cohort = gets.chomp.to_sym
+        new_cohort = gets.chop.to_sym
         index = (student_num - 1)
         $students[index][:name] = new_name
         $students[index][:cohort] = new_cohort
