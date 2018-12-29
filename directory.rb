@@ -3,7 +3,7 @@
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
+  puts "3. Save the list to student.csv"
   puts "4. Load the list from student.csv"
   puts "9. Exit"
 end
@@ -22,8 +22,10 @@ def process(selection)
      when "2"
        show_students
      when "3"
+       puts "list saved to student.csv"
        save_students
      when "4"
+       puts "list loaded from student.csv"
        load_students
      when "9"
        exit
@@ -43,12 +45,6 @@ def input_students
     if cohort == ""
     cohort = "not entered: "
     end
-  # puts "Please enter country of origin"
-  # country_origin = STDIN.gets.chomp
-  # puts "Please enter height (eg '175' for 175cm)"
-  # height = STDIN.gets.chomp
-  # puts "Please enter your favourite sport"
-  # sport = STDIN.gets.chomp
   while !name.empty? do
     add_student(name, :november)
       if @students.length < 2
@@ -127,33 +123,3 @@ end
 
 try_load_students
 interactive_menu
-
-# def option_menu(students) # Added a menu for better usability
-#   puts "  "
-#   puts "1.)......To make any CHANGES, ENTER 'c'"
-#   puts "2.)......To SEARCH students by cohort ENTER 's'"
-#   puts "3.)......To FINISH press ENTER"
-#   choice = gets.chop.downcase
-#     if choice == "c"
-#       puts "Enter the student number you want to change"
-#         student_num = gets.chop.to_i
-#       puts "Enter the correct name"
-#         new_name = gets.chop.to_sym
-#       puts "Enter the correct cohort"
-#         new_cohort = gets.chop.to_sym
-#         index = (student_num - 1)
-#         $students[index][:name] = new_name
-#         $students[index][:cohort] = new_cohort
-#       end
-#     if choice == "s"
-#         print_student_by_cohort(students)
-#     else
-#         print(students)
-#     end
-# end
-# @student = input_students
-# show_students
-# print_header
-# print_student_list
-# print_footer(student)
-# # option_menu(students)
