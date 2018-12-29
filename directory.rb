@@ -31,36 +31,29 @@ def process(selection)
        puts "I don't know what you meant, try again"
    end
 end
-def enter_name
+
+def input_students
   puts "Please enter the name of the student"
   name = STDIN.gets.chomp
     if name == ""
     name = "name: not entered"
     end
-end
-def enter_name_default
   puts "Please enter cohort"
   cohort = STDIN.gets.chomp
     if cohort == ""
     cohort = "not entered: "
     end
-end
-def student_count_message
-  if @students.length < 2
-    puts "Now we have #{@students.count} student"
-  elsif @students.length >= 2
-    puts "Now we have #{@students.count} students"
-end
-def input_students
-  enter_name
-  enter_name_default
-  name = enter_name
-  while !name.empty? do
-    add_student(name, :november)
-    student_count_message
-      end
+    while !name.empty? do
+      add_student(name, :november)
+        if @students.length < 2
+          puts "Now we have #{@students.count} student"
+            break
+        elsif @students.length >= 2
+          puts "Now we have #{@students.count} students"
+            name = STDIN.gets.chomp
+        end
+    end
   end
-end
 
 def show_students
   print_header
@@ -93,26 +86,25 @@ end
 
 def save_students
   puts "Enter the 'save as' filename"
-  filename = gets.chomp
-  file = File.open("#{filename}.csv", "w")
+  filename = STDIN.gets.chomp
+  file = File.open("#{filename}", "w")
   @students.each do |student|
     students_data = [student[:name], student[:cohort]]
     csv_line = students_data.join(",")
     file.puts csv_line
-  end
+end
   file.close
   puts "List saved to file"
 end
 
 def load_students
-  puts "Enter the filename you want to load (without the file extension)"
-  filename = gets.chomp
-  file = File.open("#{filename}.csv", "r")
+  puts "Enter the filename you want to load"
+  filename = STDIN.gets.chomp
+  file = File.open("#{filename}", "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
     add_student(name, cohort)
   end
-  file.close
   puts "List loaded from file"
 end
 
