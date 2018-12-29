@@ -3,8 +3,8 @@
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to student.csv"
-  puts "4. Load the list from student.csv"
+  puts "3. Save the list to file"
+  puts "4. Load the list from file"
   puts "9. Exit"
 end
 
@@ -22,10 +22,8 @@ def process(selection)
      when "2"
        show_students
      when "3"
-       puts "list saved to student.csv"
        save_students
      when "4"
-       puts "list loaded from student.csv"
        load_students
      when "9"
        exit
@@ -33,26 +31,33 @@ def process(selection)
        puts "I don't know what you meant, try again"
    end
 end
-
-def input_students
+def enter_name
   puts "Please enter the name of the student"
   name = STDIN.gets.chomp
     if name == ""
     name = "name: not entered"
     end
+end
+def enter_name_default
   puts "Please enter cohort"
   cohort = STDIN.gets.chomp
     if cohort == ""
     cohort = "not entered: "
     end
+end
+def student_count_message
+  if @students.length < 2
+    puts "Now we have #{@students.count} student"
+  elsif @students.length >= 2
+    puts "Now we have #{@students.count} students"
+end
+def input_students
+  enter_name
+  enter_name_default
+  name = enter_name
   while !name.empty? do
     add_student(name, :november)
-      if @students.length < 2
-        puts "Now we have #{@students.count} student"
-          break
-      elsif @students.length >= 2
-        puts "Now we have #{@students.count} students"
-          name = STDIN.gets.chomp
+    student_count_message
       end
   end
 end
@@ -87,22 +92,28 @@ def print_footer #8.9 pluralisation for student/s
 end
 
 def save_students
-  file = File.open(".student.csv", "w")
+  puts "Enter the 'save as' filename"
+  filename = gets.chomp
+  file = File.open("#{filename}.csv", "w")
   @students.each do |student|
     students_data = [student[:name], student[:cohort]]
     csv_line = students_data.join(",")
     file.puts csv_line
   end
   file.close
+  puts "List saved to file"
 end
 
-def load_students(filename = ".student.csv")
-  file = File.open(filename, "r")
+def load_students
+  puts "Enter the filename you want to load (without the file extension)"
+  filename = gets.chomp
+  file = File.open("#{filename}.csv", "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
     add_student(name, cohort)
   end
   file.close
+  puts "List loaded from file"
 end
 
 def try_load_students
