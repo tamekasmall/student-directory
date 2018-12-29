@@ -1,4 +1,5 @@
 @students = []
+require 'CSV'
 
 def print_menu
   puts "1. Input the students"
@@ -87,26 +88,45 @@ end
 def save_students
   puts "Enter the 'save as' filename"
   filename = STDIN.gets.chomp
-  file = File.open("#{filename}", "w")
+  CSV.open("#{filename}", "w") do |csv|
   @students.each do |student|
-    students_data = [student[:name], student[:cohort]]
-    csv_line = students_data.join(",")
-    file.puts csv_line
-end
-  file.close
+    csv << [student[:name], student[:cohort]]
+  end
+  end
   puts "List saved to file"
 end
+# def save_students
+#   puts "Enter the 'save as' filename"
+#   filename = STDIN.gets.chomp
+#   file = File.open("#{filename}", "w")
+#   @students.each do |student|
+#     students_data = [student[:name], student[:cohort]]
+#     csv_line = students_data.join(",")
+#     file.puts csv_line
+# end
+#   file.close
+#   puts "List saved to file"
+# end
 
 def load_students
   puts "Enter the filename you want to load"
   filename = STDIN.gets.chomp
-  file = File.open("#{filename}", "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
-    add_student(name, cohort)
+  file = File.open("#{filename}")
+  CSV.foreach("#{filename}") do |row|
+    add_student(row[0], row[1])
   end
   puts "List loaded from file"
 end
+# def load_students
+#   puts "Enter the filename you want to load"
+#   filename = STDIN.gets.chomp
+#   file = File.open("#{filename}", "r")
+#   file.readlines.each do |line|
+#     name, cohort = line.chomp.split(',')
+#     add_student(name, cohort)
+#   end
+#   puts "List loaded from file"
+# end
 
 def try_load_students
   filename = ARGV.first
