@@ -43,14 +43,14 @@ def input_students
     if cohort == ""
     cohort = "not entered: "
     end
-  puts "Please enter country of origin"
-  country_origin = STDIN.gets.chomp
-  puts "Please enter height (eg '175' for 175cm)"
-  height = STDIN.gets.chomp
-  puts "Please enter your favourite sport"
-  sport = STDIN.gets.chomp
+  # puts "Please enter country of origin"
+  # country_origin = STDIN.gets.chomp
+  # puts "Please enter height (eg '175' for 175cm)"
+  # height = STDIN.gets.chomp
+  # puts "Please enter your favourite sport"
+  # sport = STDIN.gets.chomp
   while !name.empty? do
-    @students << {name: name.to_sym, cohort: cohort.to_sym, country_origin: country_origin, height: height, sport: sport}
+    add_student(name, :november)
       if @students.length < 2
         puts "Now we have #{@students.count} student"
           break
@@ -104,7 +104,7 @@ def load_students(filename = ".student.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-    @students  << {name: name, cohort: cohort.to_sym}
+    add_student(name, cohort)
   end
   file.close
 end
@@ -119,6 +119,10 @@ def try_load_students
     puts "Sorry, #{filename} doesn't exist."
     exit
   end
+end
+
+def add_student(name, cohort)
+  @students << {:name => name, :cohort => cohort.to_sym}
 end
 
 try_load_students
